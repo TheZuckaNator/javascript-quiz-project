@@ -47,22 +47,85 @@ class Question {
       // No return needed as we're modifying the object's property
     }
   }
-class Question
+class Question {
+    constructor(questions, timeLimit, timeRemaining) {
+        this.questions = questions;
+        this.timeLimit = timeLimit;
+        this.timeRemaining = timeRemaining;
 
-// should receive 4 arguments in the constructor (text, choices, answer, difficulty).
-// should have 4 properties: text, choices, answer, difficulty.
-// should receive text (string) as its 1st argument and assign it to text property.
-// should receive choices (array of strings) as its 2nd argument and assign it to choices property.
-// should receive answer (string) as its 3rd argument and assign it to answer property.
-// should receive difficulty (number) as its 3rd argument and assign it to difficulty property.
+        // Initialize additional properties with default values
+        this.correctAnswers = 0;
+        this.currentQuestionIndex = 0;
+            
+        // Validate inputs (moved inside constructor)
+        if (typeof this.text !== 'string') {
+          throw new Error('Question text must be a string');
+        }
+        
+        // Check if questions object is empty
+        if (Object.keys(this.questions).length === 0) {
+            throw new Error('Questions object cannot be empty');
+        }
+        
+        // Check if each question has required properties
+        for (const questionId in this.questions) {
+            const question = this.questions[questionId];
+            
+            // Check if each question has all required properties
+            if (!question.hasOwnProperty('text') || 
+                !question.hasOwnProperty('choices') || 
+                !question.hasOwnProperty('answer') || 
+                !question.hasOwnProperty('difficulty')) {
+            throw new Error(`Question ${questionId} is missing required properties`);
+        }
+        
+        if (typeof this.timeLimit !== 'number' || this.timeLimit <= 0) {
+            throw new Error('Time limit must be a positive number');
+          }
+          
+          if (typeof this.timeRemaining !== 'number' || this.timeRemaining < 0) {
+            throw new Error('Time remaining must be a non-negative number');
+          }
+          
+    //      getQuestion() method
 
-// Note: The difficulty will be a number between 1 and 3, with 1 being the easiest and 3 being the hardest.
+// Returns the question from the questions array at the position of currentQuestionIndex.
 
+// should be defined.
+// should be a function.
+// should receive no arguments.
+// should return the item from the questions array at the position of currentQuestionIndex.
 
+// moveToNextQuestion() method
 
-// shuffleChoices() method
+// When called, increments the currentQuestionIndex by 1.
 
-// Shuffles the elements stored in the choices array of the Question.
+// should be defined.
+// should be a function.
+// should receive no arguments.
+// should increment the currentQuestionIndex by 1.
+
+// shuffleQuestions() method
+
+// Shuffles the elements stored in the questions array of the Quiz.
+
+// should be defined.
+// should be a function.
+// should receive no arguments.
+// should shuffle the items in the questions array.
+
+// checkAnswer(answer) method
+
+// Checks if the passed answer is correct for the current question and increments correctAnswers by 1 if the answer is correct.
+
+// should be defined.
+// should be a function.
+// should receive 1 argument (answer - string).
+// should increase correctAnswers by 1 when called with a correct answer for the current question
+
+// hasEnded() method
+
+// Returns true if the quiz has ended (the last question has been answered), and false otherwise.
 
 // should be defined.
 
@@ -70,6 +133,13 @@ class Question
 
 // should receive no arguments.
 
-// should shuffle the elements stored in the choices array property.
+// should return false when currentQuestionIndex is less than the questions array length
+
+// should return true when currentQuestionIndex is equal to the questions array length
+
+
+      }
+      
+}
 
 
